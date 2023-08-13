@@ -35,6 +35,6 @@ Publicando a imagem no Dockerhub:
 
 ```bash
 docker login
-docker tag python-img hallzero/intelli:0.0.1
-docker push hallzero/teste-aula:0.0.1
+docker tag python-img hallzero/inteli:0.0.x
+docker push hallzero/inteli:0.0.x
 ```
