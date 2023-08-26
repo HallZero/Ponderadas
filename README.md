@@ -38,3 +38,20 @@ docker login
 docker tag python-img hallzero/inteli:0.0.x
 docker push hallzero/inteli:0.0.x
 ```
+
+# 2. Ponderada 2
+
+```bash
+npm install sequelize # ORM para JavaScript
+npm install pg pg-hstore # Postgres
+```
+
+```bash
+docker build -t postgres-db .
+docker run -p 5432:5432 --name teste postgres-db
+
+```
+
+```bash
+node createDb.js
+```
