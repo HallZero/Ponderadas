@@ -1,5 +1,6 @@
 const express =  require('express');
-const {createTask, updateTask, deleteTask} = require('./task');
+const {createTask, readTask, updateTask, deleteTask} = require('./task');
+const {createUser, readUser, updateUser, deleteUser} = require('./user');
 
 const app = express();
 const port = 3000;
@@ -9,9 +10,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/create', async (req, res) => {
+    const user = await createUser({name: 'Teste'});
+    
     const task = {
         description: 'Teste',
-        id: 1
+        id: 1,
+        done: false
     };
 
     const new_task = await createTask(task);

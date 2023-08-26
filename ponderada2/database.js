@@ -1,7 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize('postgres', 'teste', 'teste123', {
-    host: 'localhost',
+    host: 'db',
+    port: 5432,
     dialect: 'postgres'
 });
 
