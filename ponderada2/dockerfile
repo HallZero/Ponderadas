@@ -1,9 +1,0 @@
-FROM postgres:latest
-
-ENV POSTGRES_PASSWORD='teste123'
-
-ENV POSTGRES_USER='teste'
-
-ENV POSTGRES_DB='postgres'
-
-EXPOSE 5432

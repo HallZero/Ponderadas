@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 'teste123'
+      POSTGRES_USER: 'teste'
+      POSTGRES_DB: 'postgres'
+    ports:
+      - 5432:5432
+    container_name: database-p2
+
+  api:
+    image: node:latest
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: npm start
+    container_name: node-p2
+    depends_on:
+      - db
+
+
