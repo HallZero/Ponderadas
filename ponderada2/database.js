@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize('postgres', 'teste', 'teste123', {
-    host: 'db',
+    host: 'localhost',
     port: 5432,
     dialect: 'postgres'
 });
@@ -15,6 +15,9 @@ const User = sequelize.define('User', {
     name: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING
     }
 }, {
     // Other model options go here
@@ -42,5 +45,12 @@ const Task = sequelize.define('Task', {
 }, {
     // Other model options go here
 });
+
+async function init() {
+    await sequelize.sync({ force: true });
+    console.log("All models were synchronized successfully.");
+}
+
+init();
 
 module.exports = { sequelize, User, Task };

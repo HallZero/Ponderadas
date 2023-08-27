@@ -3,15 +3,15 @@ const {sequelize, User} = require('./database');
 async function createUser(user){
     await sequelize.sync();
 
-    const new_user = await User.create({name: user.name});
+    const new_user = await User.create({name: user.name, password: user.password});
 
     return new_user;
 }
 
-async function readUser(user){
+async function readUserByName(user){
     const user_read = await User.findAll({
         where: {
-            id: user.id
+            name: user.name
         }
     });
 
@@ -39,4 +39,4 @@ async function deleteUser(user){
     return user_deleted;
 }
 
-module.exports = {createUser, readUser, updateUser, deleteUser};
+module.exports = {createUser, readUserByName, updateUser, deleteUser};
