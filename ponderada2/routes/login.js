@@ -1,30 +1,25 @@
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 const { readUserByName } = require('../user');
 
+dotenv.config();
+
+const JWT_SECRET = process.env.secret;
+const JWT_ALGORITHM = process.env.algoritmo;
 
 module.exports = async (req,res) => {
-    console.log(req.body);
 
-    const { name, password } = {
-        name: 'teste',
-        password: 'teste123'
-    };
+    const user = await readUserByName({ name: req.body.name });
 
-    const user = await readUserByName({ name: name });
-
-    if (user[0].dataValues.password !== password) {
+    if (user.length === 0 || user[0].dataValues.password !== req.body.password) {
         return res.status(403).json({
             error: 'Invalid login',
         });
     }
 
-    delete user.password;
+    delete user[0].dataValues.password;
 
-    // const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: '1h'});
+    const token = jwt.sign(user[0].dataValues.name, JWT_SECRET, {algorithm: JWT_ALGORITHM});
 
-    // res.cookie('token', token, {
-    //     httpOnly: true,
-    // });
-
-    return res.send('Logged in');
+    return res.json({'access token': token});
 }

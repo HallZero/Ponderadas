@@ -1,10 +1,18 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
 const sequelize = new Sequelize('postgres', 'teste', 'teste123', {
-    host: 'localhost',
+    host: 'db',
     port: 5432,
     dialect: 'postgres'
 });
+
+sequelize.authenticate()
+  .then(() => {
+    console.log('Connected to the database');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 const User = sequelize.define('User', {
     id: {
@@ -49,6 +57,8 @@ const Task = sequelize.define('Task', {
 async function init() {
     await sequelize.sync({ force: true });
     console.log("All models were synchronized successfully.");
+
+    const user = await User.create({ name: 'teste', password: 'teste123' });
 }
 
 init();
