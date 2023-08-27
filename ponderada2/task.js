@@ -10,13 +10,13 @@ async function createTask(task){
 }
 
 async function readTask(task){
-    const task_read = await Task.findAll({
+    const tasks = await Task.findAll({
         where: {
-            id: task.id
+            user_id: task.user_id
         }
     });
 
-    return task_read;
+    return tasks;
 }
 
 async function updateTask(task){
