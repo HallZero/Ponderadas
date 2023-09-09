@@ -118,3 +118,51 @@ O fluxo do código é o seguinte:
 
 Este módulo é projetado para ser chamado em uma rota que lida com a autenticação do usuário. O nome de usuário e senha são fornecidos na solicitação e o módulo executa a autenticação, retornando um token de acesso em caso de sucesso.
 
+# 3. Ponderada 3
+
+Este projeto tem como objetivo a produção de um modelo preditivo e uma API que, a partir dos dados passados, consiga prever um valor.
+
+## Estrutura de Pastas:
+
+Todo o processo de Limpeza de dados e treinamento está contido em 'machine-learning.ipynb', de onde é gerado o modelo propriamente dito em um arquivo .pkl 'finalized_model.pkl'.
+
+```
+└── ponderada3/
+    └── src/
+        ├── dataset/
+        │   └── Global YouTube Statistics.csv
+        ├── machine-learning/
+        │   ├── finalized_model.pkl
+        │   └── machine-learning.ipynb
+        ├── app.py
+        ├── Dockerfile
+        └── requirements.txt
+```
+
+## Dataset utilizado: Global Youtube Statistics
+O dataset pode ser encontrado em: https://www.kaggle.com/datasets/nelgiriyewithana/global-youtube-statistics-2023
+
+## Machine Learning Algorithm: Linear Regression
+
+A regressão linear é um dos modelos de aprendizado de máquina mais simples e interpretáveis. É fácil de entender e implementar, o que o torna uma excelente escolha para nós. (Até porque odeio análise de dados e não quero ir além disso... Desculpa Murilo 😅)
+
+No contexto de prever visualizações de vídeos no YouTube, isso significa encontrar uma equação que descreve como os atributos dos vídeos (os dados usados para a predição) se relacionam com o número de visualizações. É uma técnica simples e interpretável que pode ajudar a entender e otimizar o desempenho dos vídeos.
+
+## API: FastAPI
+
+A API possui apenas duas rotas:
+- GET ('/') -> Retorna um Hello World simples
+- POST ('/predict') -> A partir dos dados passados para o modelo, retorna uma predição do video_views do canal em questão
+
+### Para rodar o projeto:
+
+1. Baixe a imagem do repositório hallzero/predict [aqui!](ttps://hub.docker.com/repository/docker/hallzero/prediction/general)
+2. Rode o comando no terminal:
+```
+docker run -p 8000:8000 --name nome_exemplo hallzero/predict:0.0.1
+```
+3. O FastAPI gera uma documentação automática em ('/docs'). Na aba explicando o ('/predict'), utilize o template de input para fazer a predição, que será devolvida como a respota à requisição.
+
+Pontos de melhoria observados:
+- Preciso aprender melhor a lidar com dados categóricos
+- Aprender a modularizar o processo de limpeza dos dados, a fim de não depender de rodar o notebook ou colocar o mesmo código na API
