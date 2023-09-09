@@ -156,7 +156,7 @@ A API possui apenas duas rotas:
 
 ### Para rodar o projeto:
 
-1. Baixe a imagem do repositório hallzero/predict [aqui!](ttps://hub.docker.com/repository/docker/hallzero/prediction/general)
+1. Baixe a imagem do repositório hallzero/predict [aqui!](https://hub.docker.com/repository/docker/hallzero/prediction/general)
 2. Rode o comando no terminal:
 ```
 docker run -p 8000:8000 --name nome_exemplo hallzero/predict:0.0.1
