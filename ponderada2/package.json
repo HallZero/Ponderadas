@@ -6,6 +6,7 @@
     "node-jose": "^2.2.0",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
+    "plotly.js": "^2.26.1",
     "sequelize": "^6.32.1"
   }
 }
