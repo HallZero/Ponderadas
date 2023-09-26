@@ -1,4 +1,4 @@
-const { sequelize, Task } = require('./database');
+const { sequelize, Task } = require('../config/database');
 
 async function createTask(task){
     

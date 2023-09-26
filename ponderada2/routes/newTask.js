@@ -1,4 +1,4 @@
-const {createTask} = require('../task');
+const {createTask} = require('../models/task');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
