@@ -40,7 +40,7 @@
                 localStorage.setItem('jwtToken', data['access token']);
 
                 // Redirect to the todo page
-                window.location.href = '/todo';
+                window.location.href = '/chart';
             } else {
                 // Handle login error
                 const errorData = await response.json();

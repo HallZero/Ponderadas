@@ -10,6 +10,19 @@
 <body>
   <div id="myDiv"></div>
 
-  <script src="./js/plotly.js"></script>
+  <script>
+    fetch('http://localhost:3000/get-data')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      var trace1 = {
+        x: data.x,
+        y: data.y,
+        type: 'scatter'
+      };
+      var data = [trace1];
+      Plotly.newPlot('myDiv', data);
+    });
+  </script>
 </body>
 </html>

@@ -33,6 +33,10 @@ app.get('/chart', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/charts.html'));
 })
 
+app.get('/get-data', (req, res) => {
+    res.send({x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], y: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]});
+})
+
 app.get('/get-task', async (req, res) => {
     const task = await readTask({user_id: 1});
 
