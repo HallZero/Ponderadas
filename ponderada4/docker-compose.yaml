@@ -13,7 +13,7 @@ services:
     container_name: database-p4
 
   api:
-    image: teste:latest
+    image: hallzero/express-p4:latest
     restart: always
     environment:
       DB_HOST: db
@@ -29,7 +29,7 @@ services:
       - my-network
 
   python:
-    image: pytest:latest
+    image: hallzero/python-p4:latest
     restart: always
     ports:
       - 8000:8000
