@@ -9,6 +9,7 @@ const { spawn } = require('child_process');
 
 const app = express();
 const port = 3000;
+const axios = require('axios');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,35 +44,19 @@ app.get('/get-data', (req, res) => {
     res.send({x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], y: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]});
 })
 
-app.post('/predict', (req, res) => {
+app.post('/predict', async (req, res) => {
     const inputData = req.body;
 
-    const pythonProcess = spawn('python', ['./machine-learning/prediction.py']);
-    
-    let response = '';
+    // console.log(req.body);
 
-    // Send input data to the Python script
-    pythonProcess.stdin.write(JSON.stringify(inputData));
-    pythonProcess.stdin.end();
-
-    pythonProcess.stdout.on('data', (data) => {
-        response += data.toString();
-    });
-
-    pythonProcess.stderr.on('data', (data) => {
-        console.error(`Error from Python script: ${data}`);
+    try {
+        const response = await axios.post('http://python-p4:8000/predict', inputData);
+        console.log(response.data);
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error calling prediction endpoint:', error);
         res.status(500).send('Internal server error');
-    });
-
-    pythonProcess.on('close', () => {
-        try {
-            const parsedResponse = JSON.parse(response);
-            res.json(parsedResponse);
-        } catch (error) {
-            console.error('Error parsing response from Python script:', error);
-            res.status(500).send('Internal server error');
-        }
-    });
+    }
 });
 
 

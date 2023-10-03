@@ -1,38 +1,50 @@
-import sys
-import json
+from fastapi import FastAPI
+from pydantic import BaseModel
 import pandas as pd
 import joblib
+
+# Create a FastAPI application
+app = FastAPI()
+
+# Define a Pydantic model to specify the input data structure
+class InputData(BaseModel):
+    subscribers: int
+    # category: str
+    uploads: int
+    # Country: str
+    # channel_type: str
+    video_views_rank: int
+    lowest_monthly_earnings: float
+    highest_monthly_earnings: float
+    lowest_yearly_earnings: float
+    highest_yearly_earnings: float
 
 # Load your trained predictive model (replace 'your_model.pkl' with your model file)
 model = joblib.load('./machine-learning/finalized_model.pkl')
 
-# Define a Pydantic model to specify the input data structure
-class InputData:
-    def __init__(self, subscribers, uploads, video_views_rank,
-                 lowest_monthly_earnings, highest_monthly_earnings,
-                 lowest_yearly_earnings, highest_yearly_earnings):
-        self.subscribers = subscribers
-        self.uploads = uploads
-        self.video_views_rank = video_views_rank
-        self.lowest_monthly_earnings = lowest_monthly_earnings
-        self.highest_monthly_earnings = highest_monthly_earnings
-        self.lowest_yearly_earnings = lowest_yearly_earnings
-        self.highest_yearly_earnings = highest_yearly_earnings
+@app.get("/")
+def home():
+    return "Hello, World!"
 
-# Read input data from stdin (passed from Node.js)
-input_data = json.loads(sys.stdin.read())
-input_data = InputData(**input_data)
+# Define the POST route for predictions
+@app.post("/predict")
+def predict(data: InputData):
+    input_data = data.dict()
 
-# Convert the input data to a pandas DataFrame
-input_df = pd.DataFrame([input_data.__dict__])
+    # Convert the sample input data to a pandas DataFrame
+    input_df = pd.DataFrame([input_data])
 
-# Preprocess the input data if needed (e.g., one-hot encoding for categorical variables)
+    # Preprocess the input data if needed (e.g., one-hot encoding for categorical variables)
 
-# Make predictions using your model
-predictions = model.predict(input_df)
+    # Make predictions using your model
+    predictions = model.predict(input_df)
 
-# Return the predictions as a dictionary
-prediction_dict = {"predictions": predictions.tolist()}  # Assuming your model returns multiple predictions
+    # Return the predictions as a dictionary or in any desired format
+    return {"predictions": predictions[0]}  # Assuming your model returns a single prediction
 
-# Print the predictions (to be captured by Node.js)
-print(json.dumps(prediction_dict))
+# You can add more routes and functionality as needed
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
