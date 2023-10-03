@@ -169,7 +169,36 @@ Pontos de melhoria observados:
 
 # Ponderada 4
 
-🚧 WIP 🚧
+```
+.
+└── ponderada4/
+    ├── config/
+    │   └── database.js
+    ├── machine-learning/
+    │   ├── finalized_model.pkl
+    │   ├── machine-learning.ipynb
+    │   ├── Dockerfile
+    │   └── requirements.txt
+    ├── media/
+    │   └── Screencast from 02-10-2023 23:49:03.webm
+    ├── models/
+    │   ├── task.js
+    │   └── user.js
+    ├── node_modules
+    ├── public/
+    │   ├── charts.html
+    │   ├── login.html
+    │   └── todo.html
+    ├── routes/
+    │   ├── login.js
+    │   └── newTask.js
+    ├── .env
+    ├── app.js
+    ├── docker-compose.yaml
+    ├── Dockerfile
+    ├── package-lock.json
+    └── package.json
+```
 
 # Ponderada 5 - Resenha sobre o artigo
 A partir da leitura do Artigo "Machine learning for internet of things data analysis: a survey", podemos traçar comparativos entre os conceitos nele apresentados, as atividades ponderadas e o projeto desenvolvido durante o módulo. Nesse contexto, podemos evidenciar tópicos:
