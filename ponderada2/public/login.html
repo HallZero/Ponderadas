@@ -24,6 +24,8 @@
             const name = document.getElementById('name').value;
             const password = document.getElementById('password').value;
 
+            console.log(name, password);
+
             // Make the login request to your server
             const response = await fetch('/login', {
                 method: 'POST',

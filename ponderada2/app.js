@@ -22,7 +22,12 @@ app.get('/todo', (req, res) => {
 });
 
 app.get('/create', async (req, res) => {
-    const user = await createUser({name: 'teste', password: 'teste123'});
+    try{
+        const user = await createUser({name: 'teste', password: 'teste123'});
+        res.json({ message: 'User created successfully!', user });
+    } catch (error) {
+        res.status(500).json({ error: 'User creation failed.' });
+    }
 });
 
 app.post('/login', loginRoute);
