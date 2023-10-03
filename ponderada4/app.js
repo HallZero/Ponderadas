@@ -4,8 +4,7 @@ const {createUser, readUserByName, updateUser, deleteUser} = require('./models/u
 const bodyParser = require('body-parser');
 const loginRoute = require('./routes/login');
 const newTask = require('./routes/newTask');
-const path = require('path')
-const { spawn } = require('child_process');
+const path = require('path');
 
 const app = express();
 const port = 3000;

@@ -54,7 +54,7 @@
 
       // Send inputData to your server for prediction (you need to implement this)
       // Example using fetch:
-      fetch('http://localhost:3000/predict', {
+      fetch('http://api-p4:3000/predict', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -72,7 +72,7 @@
       });
     }
 
-    fetch('http://localhost:3000/get-data')
+    fetch('http://api-p4:3000/get-data')
     .then(response => response.json())
     .then(data => {
       console.log(data);
