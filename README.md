@@ -200,6 +200,37 @@ Pontos de melhoria observados:
     └── package.json
 ```
 
+![Running on AWS](./ponderada4/media/Working.gif)
+
+## Processo
+
+Clonei o repositório na instância EC2, baixei o docker e rodei o compose.
+
+```bash
+
+sudo apt update
+sudo apt upgrade -y
+
+git clone https://github.com/HallZero/Ponderadas.git
+
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+```
+
 # Ponderada 5 - Resenha sobre o artigo
 A partir da leitura do Artigo "Machine learning for internet of things data analysis: a survey", podemos traçar comparativos entre os conceitos nele apresentados, as atividades ponderadas e o projeto desenvolvido durante o módulo. Nesse contexto, podemos evidenciar tópicos:
 
