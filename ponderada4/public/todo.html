@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo</title>
+</head>
+<body>
+    <!--  Creating a todo page  -->
+    <form action="/task" method="post" id="login-form">
+        <label for="todo">Todo</label>
+        <input type="text" name="description" id="description" placeholder="Todo" required>
+        <input type="submit" value="Add">
+    </form>
+    <!-- Rendering all tasks in the database with Javascript -->
+    <ul>
+        <script>
+
+        const loginForm = document.getElementById('login-form');
+        const token = localStorage.getItem('jwtToken');
+
+        if (!token) {
+            window.location.href = '/';
+        }
+
+            // Fetching all tasks from the database
+            fetch('/get-task', {method: 'GET'})
+            .then(response => response.json())
+            .then(data => {
+                // Looping through all tasks
+                data.forEach(task => {
+                    console.log(task);
+                    // Creating a list item for each task
+                    const li = document.createElement('li');
+                    // Adding the task to the list item
+                    li.innerText = task.description;
+                    // Adding the list item to the unordered list
+                    document.querySelector('ul').appendChild(li);
+                });
+            });
+
+        loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const description = document.getElementById('description').value;
+
+        try {
+            const response = await fetch('/task', {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ description }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                
+                // Creating a list item for the task
+                const li = document.createElement('li');
+                li.innerText = data.description;
+
+                // Adding the list item to the unordered list
+                document.querySelector('ul').appendChild(li);
+            } else {
+                // Handle other error cases
+                console.error('Error:', response.statusText);
+            }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+    </ul>
+</body>
+</html>

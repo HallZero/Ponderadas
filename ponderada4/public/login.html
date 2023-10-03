@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <form action="/login" method="post" id="login-form">
+        <label for="username">Username</label>
+        <input type="text" name="name" id="name" placeholder="Username" required>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="submit" value="Login">
+    </form>
+    <script>
+        localStorage.clear();
+
+        const loginForm = document.getElementById('login-form');
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const password = document.getElementById('password').value;
+
+            console.log(name, password);
+
+            // Make the login request to your server
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, password }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+                // Save the token to localStorage
+                localStorage.setItem('jwtToken', data['access token']);
+
+                // Redirect to the todo page
+                window.location.href = '/chart';
+            } else {
+                // Handle login error
+                const errorData = await response.json();
+                console.error('Login error:', errorData.error);
+            }
+        });
+    </script>
+</body>
+</html>
