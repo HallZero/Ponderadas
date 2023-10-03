@@ -3,14 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plotly.js Chart Example</title>
+  <title>Visualização de dados do modelo</title>
   <!-- Load Plotly.js -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
+  <h1>Soon to Be predict data using plotly.js</h1>
+
+  <div>
+    <label for="subscribers">Subscribers:</label>
+    <input type="number" id="subscribers" value="1111"><br><br>
+
+    <label for="uploads">Uploads:</label>
+    <input type="number" id="uploads" value="1111"><br><br>
+
+    <label for="video_views_rank">Video Views Rank:</label>
+    <input type="number" id="video_views_rank" value="1111"><br><br>
+
+    <label for="lowest_monthly_earnings">Lowest Monthly Earnings:</label>
+    <input type="number" id="lowest_monthly_earnings" value="1111"><br><br>
+
+    <label for="highest_monthly_earnings">Highest Monthly Earnings:</label>
+    <input type="number" id="highest_monthly_earnings" value="1111"><br><br>
+
+    <label for="lowest_yearly_earnings">Lowest Yearly Earnings:</label>
+    <input type="number" id="lowest_yearly_earnings" value="1111"><br><br>
+
+    <label for="highest_yearly_earnings">Highest Yearly Earnings:</label>
+    <input type="number" id="highest_yearly_earnings" value="1111"><br><br>
+
+    <button onclick="makePrediction()">Make Prediction</button>
+  </div>
+
   <div id="myDiv"></div>
 
   <script>
+
+  function makePrediction() {
+      const inputData = {
+        "subscribers": parseInt(document.getElementById('subscribers').value),
+        "uploads": parseInt(document.getElementById('uploads').value),
+        "video_views_rank": parseInt(document.getElementById('video_views_rank').value),
+        "lowest_monthly_earnings": parseFloat(document.getElementById('lowest_monthly_earnings').value),
+        "highest_monthly_earnings": parseFloat(document.getElementById('highest_monthly_earnings').value),
+        "lowest_yearly_earnings": parseFloat(document.getElementById('lowest_yearly_earnings').value),
+        "highest_yearly_earnings": parseFloat(document.getElementById('highest_yearly_earnings').value)
+      };
+
+      console.log("Input Data:", inputData);
+
+      // Send inputData to your server for prediction (you need to implement this)
+      // Example using fetch:
+      fetch('http://localhost:3000/predict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(inputData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Prediction:", data.predictions[0]);
+
+        // Update the plot or display the prediction as needed
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+
     fetch('http://localhost:3000/get-data')
     .then(response => response.json())
     .then(data => {
