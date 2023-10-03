@@ -1,4 +1,4 @@
-const {sequelize, User} = require('../config/database');
+const {sequelize, User} = require('./database');
 
 async function createUser(user){
     await sequelize.sync();

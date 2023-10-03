@@ -24,8 +24,6 @@
             const name = document.getElementById('name').value;
             const password = document.getElementById('password').value;
 
-            console.log(name, password);
-
             // Make the login request to your server
             const response = await fetch('/login', {
                 method: 'POST',
@@ -42,7 +40,7 @@
                 localStorage.setItem('jwtToken', data['access token']);
 
                 // Redirect to the todo page
-                window.location.href = '/chart';
+                window.location.href = '/todo';
             } else {
                 // Handle login error
                 const errorData = await response.json();

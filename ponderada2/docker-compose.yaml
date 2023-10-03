@@ -13,7 +13,7 @@ services:
     container_name: database-p2
 
   api:
-    image: teste:latest
+    image: hallzero/express-p2:latest
     restart: always
     environment:
       DB_HOST: db
